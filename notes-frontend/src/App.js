@@ -10,11 +10,12 @@ import AddNote from "./views/AddNote";
 function App() {
   const [notes,setNotes]=useState([]);
   let CSRF=document.cookie.slice(10);
+//  let apiHost="localhost:8000";
 
   useEffect(()=>{
      const fetchNotes=async()=>{
-        const res=await fetch("http://localhost:8000/api/notes/");
-       const data=await res.json();
+        const res=await fetch(`/api/notes/`);
+        const data=await res.json();
        setNotes(data);
      }
 
@@ -41,7 +42,7 @@ function App() {
     body:Body
    }
 
-   await fetch("http://localhost:8000/api/notes/addnote",{
+   await fetch(`/api/notes/addnote`,{
      method:"POST",
      headers:{
       "Content-type":"application/json",
@@ -54,7 +55,7 @@ function App() {
 
 
  const getNote=async (id)=>{
-   const res=await fetch(`http://localhost:8000/api/notes/${id}/`,{
+   const res=await fetch(`/api/notes/${id}/`,{
       method:"GET"
     });
     const data=await res.json();
@@ -67,7 +68,7 @@ function App() {
    let newData={title,body};
 //   let CSRF=document.cookie.slice(10);
 
-   await fetch(`http://localhost:8000/api/notes/${id}/update/`,{
+   await fetch(`/api/notes/${id}/update/`,{
      method:"PUT",
      headers:{
       "Content-Type":"application/json",
@@ -80,7 +81,7 @@ function App() {
   }
 
   const deleteData=async(data_id,redirect)=>{
-   await fetch(`http://localhost:8000/api/notes/${data_id}/delete/`,{
+   await fetch(`/api/notes/${data_id}/delete/`,{
      method:"DELETE",
      headers:{
       "Content-Type":"application/json",
